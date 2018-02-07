@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="40sp"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="25dp"
+    android:text="Tap the plus icon to add a note."/>
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="25dp"
+
+        android:layout_height="wrap_content"
+        android:text="Long press the note to delete it."/>
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="15dp"
+
+        android:layout_height="wrap_content"
+        android:text="Touch elsewhere to start taking notes"/>
+
+</LinearLayout>
