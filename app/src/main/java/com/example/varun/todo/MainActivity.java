@@ -36,8 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-//    private ArrayList<Notes> notes;
-    ArrayList<Notes> notes = new ArrayList<>();
+    ArrayList<Note> notes = new ArrayList<>();
     NotesAdapter notesAdapter = new NotesAdapter(notes);
     BroadcastReceiver br;
     FirebaseDatabase firebaseDatabase;
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Notes newNote=dataSnapshot.getValue(Notes.class);
+                Note newNote=dataSnapshot.getValue(Note.class);
                 notes.add(newNote);
                 notesAdapter.notifyDataSetChanged();
             }
@@ -156,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
    /* @Override
@@ -209,7 +207,5 @@ public class MainActivity extends AppCompatActivity {
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+
                     alarmTime*1000, pendingIntent);
 
-
     }
-
 }
