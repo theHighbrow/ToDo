@@ -8,17 +8,17 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="25dp"
+    android:textSize="30dp"
     android:text="Tap the plus icon to add a note."/>
     <TextView
         android:layout_width="match_parent"
-        android:textSize="25dp"
+        android:textSize="30dp"
 
         android:layout_height="wrap_content"
         android:text="Long press the note to delete it."/>
     <TextView
         android:layout_width="match_parent"
-        android:textSize="15dp"
+        android:textSize="20dp"
 
         android:layout_height="wrap_content"
         android:text="Touch elsewhere to start taking notes"/>
