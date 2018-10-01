@@ -35,13 +35,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements ChildEventListener {
-//    private ArrayList<Notes> notes;
-    ArrayList<Notes> notes = new ArrayList<>();
+public class MainActivity extends AppCompatActivity {
+    ArrayList<Note> notes = new ArrayList<>();
     NotesAdapter notesAdapter = new NotesAdapter(notes);
     BroadcastReceiver br;
     FirebaseDatabase firebaseDatabase;
-
+    Integer uid=0;
     FirebaseUser firebaseUser;
 
     @Override
@@ -57,10 +56,10 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
                 false));
         recyclerView.setAdapter(notesAdapter);
+        firebaseDatabase=FirebaseDatabase.getInstance();
+      //  firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if(firebaseUser==null){
+      /*  if(firebaseUser==null){
             //sign in first
             startActivityForResult(
                     AuthUI.getInstance()
@@ -76,14 +75,14 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
             if(firebaseDatabase!=null)
             firebaseDatabase.getReference("note").addChildEventListener(this);
         }
-
+*/
         View dialogView1 = getLayoutInflater().inflate(R.layout.tips, null, false);
-        final AlertDialog alertDialog1 = new AlertDialog.Builder(this)
+      /*  final AlertDialog alertDialog1 = new AlertDialog.Builder(this)
                 .setTitle("Tips")
                 .setView(dialogView1)
                 .create();
         alertDialog1.show();
-
+*/
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_layout, null, false);
         final EditText title = dialogView.findViewById(R.id.editTextTitle);
         final EditText description = dialogView.findViewById(R.id.editTextDescription);
@@ -98,16 +97,14 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         Notes note=new Notes("" + System.currentTimeMillis(),"" + title.getText().toString(), "" + description.getText().toString(), ""+time.getText().toString());
-
-                        DatabaseReference reference;
                         firebaseDatabase =FirebaseDatabase.getInstance();
-
-                        reference = firebaseDatabase.getReference("notes").child(FirebaseAuth.getInstance().
-                                getCurrentUser().getUid()).child(note.getId());
+                        DatabaseReference reference = firebaseDatabase.getReference("notes").child("Note "+uid);
+                        //FirebaseAuth.getInstance().getCurrentUser().getUid()).child(note.getId()
                         reference.setValue(note);
+                        uid++;
                       //  notes.add(note);
                         //notesAdapter.notifyItemInserted(notes.size());
-                        setAlarm(time.getText().toString());
+                   //     setAlarm(time.getText().toString());
                         // title.setText("");
                         // description.setText("");
                     }
@@ -124,15 +121,40 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //       .setAction("Action", null).show();
-                //           notes.add(new Notes(editText.getText().toString()));
-                //         notesAdapter.notifyItemInserted(notes.size());
-                //       editText.setText("");
                 alertDialog.show();
             }
         });
 
+        //RETRIEVE USING THIS METHOD
+        final DatabaseReference databaseReference= firebaseDatabase.getReference("notes");
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Note newNote=dataSnapshot.getValue(Note.class);
+                notes.add(newNote);
+                notesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
    /* @Override
@@ -185,43 +207,5 @@ public class MainActivity extends AppCompatActivity implements ChildEventListene
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+
                     alarmTime*1000, pendingIntent);
 
-
-    }
-
-    @Override
-    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        Notes inNotes;
-        inNotes = dataSnapshot.getValue(Notes.class);
-        //notes is the object of arraylist
-        notes.add(inNotes);
-        notesAdapter.notifyItemInserted(notes.size());
-        Log.e("TAG","onChildAdded");
-
-
-    }
-
-    @Override
-    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-    }
-
-    @Override
-    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-    }
-
-    @Override
-    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-    }
-
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }
