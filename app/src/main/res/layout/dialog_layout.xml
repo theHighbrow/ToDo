@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <EditText
         android:layout_width="match_parent"
         android:hint="Enter title"
@@ -12,14 +11,14 @@
         android:id="@+id/editTextTitle"/>
     <EditText
         android:layout_width="match_parent"
-        android:hint="Add some details"
+        android:hint="Add some details."
         android:textSize="15sp"
         android:layout_height="wrap_content"
         android:id="@+id/editTextDescription"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="remind me in : __ minutes"
+        android:hint="remind me in : minutes"
         android:id="@+id/editTextTime"
         android:textSize="14sp"/>
 </LinearLayout>
