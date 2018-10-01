@@ -13,7 +13,7 @@
         android:id="@+id/Textnote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notes you add appear here:"        />
+        android:text="Notes you add will appear here:"        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvNotes"
