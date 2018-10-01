@@ -5,7 +5,7 @@
     android:orientation="vertical">
     <EditText
         android:layout_width="match_parent"
-        android:hint="Enter title"
+        android:hint="Enter title "
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:id="@+id/editTextTitle"/>
@@ -20,5 +20,5 @@
         android:layout_height="wrap_content"
         android:hint="remind me in(minutes)"
         android:id="@+id/editTextTime"
-        android:textSize="14sp"/>
+        android:textSize="10sp"/>
 </LinearLayout>
